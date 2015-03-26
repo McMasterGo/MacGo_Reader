@@ -1,4 +1,3 @@
-//
 //  ItemController.m
 //  QRCodeReader
 //
@@ -8,20 +7,58 @@
 
 #import "ItemController.h"
 
-@interface ItemController ()
-
-@end
-
 @implementation ItemController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+    }
+    return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
+//    [self.delegate quantityDidChange:22];
+    
+}
+
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    // Do any additional setup after loading the view.
+//}
+//
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
+
+- (void)quantityDidChange:(NSInteger)quantity {
+    
+//    _itemCounter.text = @"1";
+//    quantity = [_itemCounter.text intValue];
+    
+}
+
+- (IBAction)addButton:(id)sender {
+    
+//    int quantity = [_itemCounter.text intValue];
+//    quantity++;
+//    NSLog(@"counters value %i",quantity);
+    
+}
+
+- (IBAction)minusButton:(id)sender {
+    
+//    int quantity = [_itemCounter.text intValue];
+//    quantity--;
+//    NSLog(@"counter value %i",quantity);
+
+    
 }
 
 /*

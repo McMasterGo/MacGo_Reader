@@ -1,18 +1,37 @@
 //
 //  AppDelegate.m
 //  QRCodeReader
-//
-//  Created by Gabriel Theodoropoulos on 27/11/13.
-//  Copyright (c) 2013 Gabriel Theodoropoulos. All rights reserved.
-//
 
 #import "AppDelegate.h"
+#import "ItemController.h"
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+//        [Parse enableLocalDatastore];
+
+    // Initialize Parse.
+    [Parse setApplicationId:@"nTERmyCRrA1y3B8LhGQiXP38lx8wu2Mrdtpppwhr"
+                  clientKey:@"0F15Y4JqxGMPeRfDfsjFML26Yu3I5oNkA6KDzcME"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     // Override point for customization after application launch.
+    
+    // Call instance of PFQueryTableViewController 
+//    ItemController *itemController = [[ItemController alloc]init];
+    
+    //Displays the items from the database but overrides current ViewController
+//    self.window.rootViewController = itemController;
+//    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 							
