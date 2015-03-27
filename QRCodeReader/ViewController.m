@@ -143,12 +143,12 @@
     
     NSLog(@"Row: %li, Object name: %@, cost: %@", (long)senderButton.tag, tempObject[@"name"], tempObject[@"price"]);
     
-//    NSString *itemVal = cell.itemCounter.text;
-//    
-//    int itemValInt = [itemVal intValue];
-//    itemValInt++;
+    NSString *itemVal = cell.itemCounter.text;
+//
+    int itemValInt = [itemVal intValue];
+    itemValInt++;
     
-//    NSLog(@"########################%i",itemValInt);
+    NSLog(@"########################%i",itemValInt);
     
     
     // Determine whether add or minus button clicked
