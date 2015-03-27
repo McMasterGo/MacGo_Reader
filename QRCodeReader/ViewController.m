@@ -146,7 +146,6 @@
     NSString *itemVal = cell.itemCounter.text;
 //
     int itemValInt = [itemVal intValue];
-    itemValInt++;
     
     NSLog(@"########################%i",itemValInt);
     
