@@ -39,27 +39,10 @@
 
 - (void)quantityDidChange:(NSInteger)quantity {
     
-//    _itemCounter.text = @"1";
-//    quantity = [_itemCounter.text intValue];
+//    _itemCounter.text = [NSString stringWithFormat:@"%i", quantity];
     
 }
 
-- (IBAction)addButton:(id)sender {
-    
-//    int quantity = [_itemCounter.text intValue];
-//    quantity++;
-//    NSLog(@"counters value %i",quantity);
-    
-}
-
-- (IBAction)minusButton:(id)sender {
-    
-//    int quantity = [_itemCounter.text intValue];
-//    quantity--;
-//    NSLog(@"counter value %i",quantity);
-
-    
-}
 
 /*
 #pragma mark - Navigation

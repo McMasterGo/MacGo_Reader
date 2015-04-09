@@ -23,7 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *itemTableView;
 
-
 // Cannot connect to view controller?
 @property (weak, nonatomic) IBOutlet UITableViewCell *purchaseTotalCell;
 

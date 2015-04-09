@@ -41,6 +41,7 @@
     
     // Begin loading the sound effect so to have it ready for playback when it's needed.
     //[self loadBeepSound];
+    
     // When loads, queryItemTable method will be selected
 //    [self performSelector:@selector(queryItemTable)];
     [self queryItemTable];
@@ -121,7 +122,7 @@
     cell.itemCounter.tag = indexPath.row;
     
     // Initialize counter to be 0
-    cell.itemCounter.text =@"0";
+    cell.itemCounter.text =@"5";
     
     // "Listen" to what is clicked, if so go to addMinusClick method
     [cell.buttonAdd addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
@@ -133,50 +134,68 @@
 - (void)addMinusButton:(id)sender {
     
     UIButton*senderButton = (UIButton *)sender;
+
+    // Other method for getting the button cell
+//    ItemController *cell = (ItemController*) senderButton.superview;
+//    NSIndexPath *indexPath = [self.itemTableView indexPathForCell:cell];
     
     // Get the item at whichever row is clicked
     PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
-//    NSLog(@"Object ID: %@", tempObject.objectId);
     
     ItemController *cell = [self.itemTableView dequeueReusableCellWithIdentifier:@"itemCell"];
-    cell.delegate = self;
+//    cell.delegate = self;
+    
+//    cell.buttonAdd.tag = senderButton.tag;
+//    cell.buttonMinus.tag = senderButton.tag;
     
     NSLog(@"Row: %li, Object name: %@, cost: %@", (long)senderButton.tag, tempObject[@"name"], tempObject[@"price"]);
     
     NSString *itemVal = cell.itemCounter.text;
-//
+
     int itemValInt = [itemVal intValue];
     
-    NSLog(@"########################%i",itemValInt);
-    
+    NSLog(@"ITEMVALUE: %i \n Cell of Add tag %i \n Cell of Minus Tag %i",itemValInt, cell.buttonAdd.tag, cell.buttonMinus.tag);
     
     // Determine whether add or minus button clicked
+    
+    if (cell.buttonAdd) {
+        // Increment itemCounter
+        [self addItemButton];
+        NSLog(@"added %@ counter: %i", tempObject[@"name"], counter);
+        cell.itemCounter.text = [NSString stringWithFormat:@"%i", counter];
+    }
+//    
+//    if (cell.buttonMinus) {
+//        // Decrement itemCounter
+//        [self minusItemButton];
+//        NSLog(@"minus %@ counter: %i", tempObject[@"name"], counter);
+//        cell.itemCounter.text = [NSString stringWithFormat:@"%i", counter];
+//
+//    }
+    
     
     // If add/minus button cell.itemCounter.text = counter
 
 }
 
 // Initate counter value
-//int counter = 0;
+int counter = 0;
 
-- (IBAction)addItemButton:(id)sender {
-    
-//    counter++;
-//    NSLog(@"Counter value = %i", counter);
+- (void)addItemButton {
+    // Increment cell.itemCounter.text
+    counter++;
 //    itemCounter.text = [NSString stringWithFormat:@"%i", counter];
     
-    // Increment cell.itemCounter.text
 }
 
 
-- (IBAction)minusItemButton:(id)sender {
-    
-//    counter--;
-//    NSLog(@"Counter value = %i", counter);
+- (void)minusItemButton {
+    // Decrement cell.itemCounter.text
+
+    counter--;
 //    itemCounter.text = [NSString stringWithFormat:@"%i", counter];
 
     
-    // Decrement cell.itemCounter.text
 }
 
 
@@ -200,6 +219,9 @@
 #pragma mark - IBAction method implementation
 
 - (IBAction)startStopReading:(id)sender {
+    // Test to see if works with hardcoded string
+//    [self createPurchaseWithTokenId:@"Io5mQrE9rL"];
+    
     if (!_isReading) {
         // This is the case where the app should read a QR code when the start button is tapped.
         if ([self startReading]) {
@@ -207,7 +229,6 @@
             // running, then change the start button title and the status message.
             [_bbitemStart setTitle:@"Stop"];
             [_lblStatus setText:@"Scanning for QR Code"];
-//            [_tableView setHidden:YES];
             [_itemTableView setHidden: YES];
 
         }
@@ -218,7 +239,6 @@
         // The bar button item's title should change again.
         [_bbitemStart setTitle:@"Start!"];
         [_lblStatus setText:@""];
-//        [_tableView setHidden:NO];
         [_itemTableView setHidden: NO];
 
     }
@@ -324,8 +344,14 @@
             PFObject *purchase = [PFObject objectWithClassName:@"Purchase"];
             purchase[@"user"] = user;
             
+//            NSString *totalCostString = @"";
+//            int totalCostInt = [totalCostString intValue];
+            
+            // Replace 3 with totalCostInt when figured out how to determine totalCost
+            NSNumber *totalCost = [NSNumber numberWithInt:3];
+            
             /* Still working on how to determine total cost */
-            purchase[@"totalCost"] = @"";
+            purchase[@"totalCost"] = totalCost;
             [purchase saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     // Display confirmation
@@ -341,8 +367,6 @@
         else {
             NSLog(@"%@",error);
         }
-        
-        
         
     }];
     
@@ -383,6 +407,8 @@
 #pragma mark - ItemControllerProtocol
 - (void)quantityDidChange:(NSInteger)quantity{
     
+//    cell.itemCounter.text = [NSString stringWithFormat:@"%i", quantity];
+
     NSLog(@"Quantity Changed");
     
 }
