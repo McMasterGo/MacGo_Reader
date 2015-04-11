@@ -42,6 +42,8 @@
     // Begin loading the sound effect so to have it ready for playback when it's needed.
     //[self loadBeepSound];
     
+    self.itemTableView.delegate = self;
+    
     // When loads, queryItemTable method will be selected
 //    [self performSelector:@selector(queryItemTable)];
     [self queryItemTable];
@@ -99,8 +101,11 @@
     // ItemController used from ItemController.h
     ItemController *cell = [tableView dequeueReusableCellWithIdentifier:itemIdentifier];
     cell.delegate = self;
+    
+    // Display each item in table cells
     PFObject *tempObject = [itemArray objectAtIndex:indexPath.row];
     
+    // Set item names
     cell.itemLabelName.text = [NSString stringWithFormat:@"%@",tempObject[@"name"]]; //[tempObject objectForKey:@"name"];
     
     
@@ -109,7 +114,7 @@
     
     float floatPrice = stringPrice.floatValue; //[stringPrice floatValue];
     
-    
+    // Set item cost
     cell.itemLabelCost.text = [NSString stringWithFormat:@"$%.2f",floatPrice ];
     
     // Displays without 2 decimal places (if there is a 0)(i.e. $0.50 vs $0.5)
@@ -125,8 +130,8 @@
     cell.itemCounter.text =@"5";
     
     // "Listen" to what is clicked, if so go to addMinusClick method
-    [cell.buttonAdd addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
-    [cell.buttonMinus addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
+//    [cell.buttonAdd addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
+//    [cell.buttonMinus addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
 
     return cell;
 }
@@ -150,21 +155,22 @@
     
     NSLog(@"Row: %li, Object name: %@, cost: %@", (long)senderButton.tag, tempObject[@"name"], tempObject[@"price"]);
     
-    NSString *itemVal = cell.itemCounter.text;
-
-    int itemValInt = [itemVal intValue];
-    
-    NSLog(@"ITEMVALUE: %i \n Cell of Add tag %i \n Cell of Minus Tag %i",itemValInt, cell.buttonAdd.tag, cell.buttonMinus.tag);
+//    NSString *itemVal = cell.itemCounter.text;
+//
+//    int itemValInt = [itemVal intValue];
+//    
+//    NSLog(@"ITEMVALUE: %i \n Cell of Add tag %i \n Cell of Minus Tag %i",itemValInt, cell.buttonAdd.tag, cell.buttonMinus.tag);
     
     // Determine whether add or minus button clicked
     
     if (cell.buttonAdd) {
         // Increment itemCounter
-        [self addItemButton];
+//        [self addItemButton];
         NSLog(@"added %@ counter: %i", tempObject[@"name"], counter);
-        cell.itemCounter.text = [NSString stringWithFormat:@"%i", counter];
+        NSLog(@"Value of add tag:%i",cell.buttonAdd.tag);
+//        cell.itemCounter.text = [NSString stringWithFormat:@"%i", counter];
     }
-//    
+//
 //    if (cell.buttonMinus) {
 //        // Decrement itemCounter
 //        [self minusItemButton];
@@ -180,6 +186,24 @@
 
 // Initate counter value
 int counter = 0;
+- (IBAction)addItemButton:(id)sender {
+    
+    UIButton*senderButton = (UIButton *)sender;
+
+    // Get the item at whichever row is clicked
+    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
+    NSLog(@"Add button clicked for row %li Item %@", (long)senderButton.tag,tempObject[@"name"]);
+}
+
+- (IBAction)minusItemButton:(id)sender {
+    
+    UIButton*senderButton = (UIButton *)sender;
+    
+    // Get the item at whichever row is clicked
+    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
+    NSLog(@"Minus button clicked for row %li Item %@", (long)senderButton.tag,tempObject[@"name"]);
+}
+
 
 - (void)addItemButton {
     // Increment cell.itemCounter.text

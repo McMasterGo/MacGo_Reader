@@ -61,13 +61,16 @@
                                                         <color key="titleColor" red="0.81568627449999997" green="0.75686274509999996" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="addItemButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fz1-iR-P80"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8J-3Z-tai" userLabel="-">
                                                     <rect key="frame" x="200" y="26" width="31" height="22"/>
                                                     <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="11"/>
                                                     <state key="normal" image="Minus Icon"/>
                                                     <connections>
-                                                        <action selector="minusButton:" destination="kZB-kF-GeF" eventType="touchUpInside" id="gie-od-cz6"/>
+                                                        <action selector="minusItemButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kHh-VV-nVt"/>
                                                     </connections>
                                                 </button>
                                                 <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cDM-y0-yue">
