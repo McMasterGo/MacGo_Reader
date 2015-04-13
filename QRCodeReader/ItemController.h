@@ -19,6 +19,8 @@
 
 @property (assign) id<ItemControllerProtocol> delegate;
 
+@property (assign, nonatomic) NSInteger itemCount;
+
 @property (weak, nonatomic) IBOutlet UILabel *itemLabelName;
 
 @property (weak, nonatomic) IBOutlet UILabel *itemLabelCost;
