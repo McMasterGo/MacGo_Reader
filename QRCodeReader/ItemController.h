@@ -25,12 +25,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *itemLabelCost;
 
-@property (weak, nonatomic) IBOutlet UILabel *itemCounter;
+@property (weak, nonatomic) IBOutlet UILabel *itemQuantityLabelCost;
 
-@property (weak, nonatomic) IBOutlet UITextField *numberOfItems;
+@property (weak, nonatomic) IBOutlet UILabel *itemCounter;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonMinus;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonAdd;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelPurchaseTotal;
+
 
 @end

@@ -50,12 +50,20 @@
     
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 #pragma mark - Table View Methods
 
 - (void)queryItemTable {
     
     // Query list of items from Item table]
     PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+    [query orderByAscending:@"name"];
     
     // Stores items into 'objects'
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -63,7 +71,6 @@
             
             // Prints out the items
             //NSLog(@"%@", objects);
-            
             
             // Store items queried into the array
             itemArray = [[NSArray alloc] initWithArray:objects];
@@ -102,15 +109,46 @@
     ItemController *cell = [tableView dequeueReusableCellWithIdentifier:itemIdentifier];
     cell.delegate = self;
     
+    // Change the colours of the rows
+    if (indexPath.row % 2 == 1) {
+        cell.itemLabelName.textColor = [UIColor whiteColor];
+        cell.itemLabelCost.textColor = [UIColor whiteColor];
+        cell.itemQuantityLabelCost.textColor = [UIColor whiteColor];
+        cell.itemCounter.textColor = [UIColor whiteColor];
+        
+        UIImage *plusIconW = [UIImage imageNamed:@"Plus Icon-w"];
+        UIImage *minusIconW = [UIImage imageNamed:@"Minus Icon-w"];
+
+        [cell.buttonAdd setImage:plusIconW forState:UIControlStateNormal];
+        [cell.buttonMinus setImage:minusIconW forState:UIControlStateNormal];
+
+        cell.buttonAdd.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        cell.buttonMinus.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    else {
+//        cell.itemQuantityLabelCost.textColor = [UIColor whiteColor];
+        
+    }
+    
     // Display each item in table cells
     PFObject *tempObject = [itemArray objectAtIndex:indexPath.row];
+
+    // Add object to nil object when table is off screen
+//    NSMutableArray *newArrayOfStrings = [NSMutableArray array];
+//    
+//    for (int i=0; i<itemArray.count; i++) {
+//        PFObject *newTempObj = itemArray[i];
+//        [newArrayOfStrings addObject:newTempObj];
+//    }
+//    if ([itemArray containsObject:[NSNull null]]) {
+//        NSLog(@"nil in minus");
+//    }
     
     // Set item names
     cell.itemLabelName.text = [NSString stringWithFormat:@"%@",tempObject[@"name"]]; //[tempObject objectForKey:@"name"];
     
-    
     // Convert price display to look more elegant (i.e. $0.50 vs $0.5)
-    NSMutableString *stringPrice = [NSMutableString stringWithFormat:@"%@", tempObject[@"price"]];
+    NSString *stringPrice = [NSString stringWithFormat:@"%@", tempObject[@"price"]];
     
     float floatPrice = stringPrice.floatValue; //[stringPrice floatValue];
     
@@ -126,33 +164,11 @@
     
     cell.itemCounter.tag = indexPath.row;
     
-    // Initialize counter to be 0
-    cell.itemCounter.text =@"0";
-    
     // "Listen" to what is clicked, if so go to addMinusClick method
     [cell.buttonAdd addTarget:self action:@selector(addPlusButton:) forControlEvents: UIControlEventTouchUpInside];
     [cell.buttonMinus addTarget:self action:@selector(addMinusButton:) forControlEvents: UIControlEventTouchUpInside];
 
     return cell;
-}
-
-// Initate counter value
-- (IBAction)addItemButton:(id)sender {
-    
-    UIButton*senderButton = (UIButton *)sender;
-
-    // Get the item at whichever row is clicked
-    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
-    NSLog(@"Add button clicked for row %li Item %@", (long)senderButton.tag,tempObject[@"name"]);
-}
-
-- (IBAction)minusItemButton:(id)sender {
-    
-    UIButton*senderButton = (UIButton *)sender;
-    
-    // Get the item at whichever row is clicked
-    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
-    NSLog(@"Minus button clicked for row %li Item %@", (long)senderButton.tag,tempObject[@"name"]);
 }
 
 - (void)addMinusButton:(id)sender {
@@ -170,16 +186,26 @@
     }
     cell.itemCounter.text = [NSString stringWithFormat:@"%lu", (long)cell.itemCount];
     
-    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
+//    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
 
-    NSString *itemName = tempObject[@"name"];
-    float floatPrice = [tempObject[@"price"]floatValue] * cell.itemCount;
-    NSLog(@"Cost of %@ is %.2f",itemName, floatPrice);
-    
-    [self purchaseTotalCost: floatPrice ];
+//    NSString *itemName = tempObject[@"name"];
+//    float floatPrice = [tempObject[@"price"]floatValue] * cell.itemCount;
+//    NSLog(@"Cost of %i %@ is %.2f",cell.itemCount, itemName, floatPrice);
 
+//    NSString *itemName = cell.itemLabelName.text;
     
+    NSString *itemCostString = cell.itemLabelCost.text;
     
+    // Removes the $ from the string
+    NSString *itemCostStringNew = [itemCostString substringFromIndex:1];
+    float floatPrice = [itemCostStringNew floatValue] * cell.itemCount;
+    float newFloatPrice = [[NSString stringWithFormat:@"%.2f",floatPrice] floatValue];
+    
+    cell.itemQuantityLabelCost.text = [NSString stringWithFormat:@"$%.2f", newFloatPrice];
+
+    float totalCost = [self purchaseTotalCost];
+    
+    NSLog(@"Total cost of all items: %.2f", totalCost);
     
 }
 
@@ -193,56 +219,339 @@
     cell.itemCount += 1;
     cell.itemCounter.text = [NSString stringWithFormat:@"%lu", (long)cell.itemCount];
     
-    PFObject *tempObject = [itemArray objectAtIndex:senderButton.tag];
+    NSString *itemCostString = cell.itemLabelCost.text;
     
-    NSString *itemName = tempObject[@"name"];
-    float floatPrice = [tempObject[@"price"]floatValue] * cell.itemCount;
-    NSLog(@"Cost of %@ is %.2f",itemName, floatPrice);
-    
-//    [self purchaseTotalCost: floatPrice ];
+    // Removes the $ from the string
+    NSString *itemCostStringNew = [itemCostString substringFromIndex:1];
+    float floatPrice = [itemCostStringNew floatValue] * cell.itemCount;
+    float newFloatPrice = [[NSString stringWithFormat:@"%.2f",floatPrice] floatValue];
 
+    cell.itemQuantityLabelCost.text = [NSString stringWithFormat:@"$%.2f", newFloatPrice];
     
+    float totalCost = [self purchaseTotalCost];
+    
+    NSLog(@"Total cost of all items: %.2f", totalCost);
+
 }
 
+- (float)purchaseTotalCost {
+    
+    // Loop through each cell in itemTableView
+    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    for (NSInteger j = 0; j < [_itemTableView numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [_itemTableView numberOfRowsInSection:j]; ++i)
+        {
+            [cells addObject:[_itemTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+        }
+    }
+    
+    double sumOfAllItems=0;
+    
+    for (ItemController *cell in cells) {
+        int itemQuantity = cell.itemCount;
+        
+        NSString *itemCostString = cell.itemLabelCost.text;
+        
+        // Removes the $ from the string
+        NSString *itemCostStringNew = [itemCostString substringFromIndex:1];
+        float itemCost = [itemCostStringNew floatValue] * itemQuantity;
+        float newItemCost = [[NSString stringWithFormat:@"%.2f",itemCost] floatValue];
+        sumOfAllItems += newItemCost;
+        
+        // Change the purchase total label to the cost of each item added up
+        _purchaseTotalLabel.text = [NSString stringWithFormat:@"$%.2f",sumOfAllItems];
+        
+    }
+    
+    return sumOfAllItems;
+
+}
 // If row is selected (for displaying data now)
 - (void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     PFObject *tempObject = [itemArray objectAtIndex:indexPath.row];
     
-//    NSLog(@"Object ID: %@", tempObject.objectId);
+    NSLog(@"Object ID: %@", tempObject.objectId);
     NSLog(@"Row: %li, Object name: %@, cost: %@", (long)indexPath.row, tempObject[@"name"], tempObject[@"price"]);
 
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Create Purchase and Purchase Items Methods
+
+- (void)createPurchaseWithTokenId:(NSString*)token{
+    
+    // Initiate Purchase for Token
+    PFQuery *query = [PFQuery queryWithClassName:@"Tokens"];
+    [query getObjectInBackgroundWithId:token block:^(PFObject *tokenId, NSError *error) {
+        
+        // If no error
+        if (error == nil) {
+            // Get the user that corresponds to their tokenId
+            PFObject *userPointerObject = [tokenId objectForKey:@"user"];
+            NSString *userId = userPointerObject.objectId;
+            
+            BOOL isTokenActive = [[tokenId objectForKey:@"active"] boolValue];
+
+            if (isTokenActive == false) {
+                
+                // Alert box indicating that token has expired
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Token Error" message:@"The QR Code that you are attempting to use has expired.\n Please generate a new code from the MacGo application." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                [alert show];
+                // Tableview may be hidden at this point, uncomment in live app
+                // [_itemTableView setHidden: NO];
+                // [self stopReading];
+
+                
+            } else {
+                // Token is true
+                
+                // Get info of user
+                PFQuery *query = [PFUser query];
+                
+                [query whereKey:@"objectId" equalTo:userId];
+                
+                [query getObjectInBackgroundWithId:userId block:^(PFObject *userInfo, NSError *error) {
+                    
+                    // If no error
+                    if (error ==nil) {
+                        
+                        NSNumber *userBalanceNumber = userInfo[@"balance"];
+                        
+                        float userBalance = [userBalanceNumber floatValue];
+                        
+                        float totalCostFloat =[self purchaseTotalCost];
+                        
+                        // Get the cost to 2 decimal places
+                        float newTotalCostFloat = [[NSString stringWithFormat:@"%.2f", totalCostFloat]floatValue];
+                        
+                        NSNumber *totalCost = [NSNumber numberWithFloat:newTotalCostFloat];
+                        
+                        if (userBalance < newTotalCostFloat) {
+                            NSLog(@"User balance of %.2f is less than total price of %.2f", userBalance, newTotalCostFloat);
+                            
+                            NSString *balanceErrorMessage = [NSString stringWithFormat: @"Insufficient Balance The user balance of %.2f does not meet the total required amount of %.2f", userBalance,newTotalCostFloat];
+                            
+                            // Alert box indicating that the balance does not meet the purchase amount
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient Balance" message:balanceErrorMessage delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                            [alert show];
+                            
+                            // Tableview may be hidden at this point, uncomment in live app
+                            // [_itemTableView setHidden: NO];
+                            // [self stopReading];
+                            
+                        } else {
+                            NSLog(@"User balance of %.2f is greater than total price of %.2f", userBalance, newTotalCostFloat);
+                            
+                            // Create Purchase
+                            PFObject *purchase = [PFObject objectWithClassName:@"Purchase"];
+                            
+                            purchase[@"user"] = userPointerObject;
+                            purchase[@"totalCost"] = totalCost;
+                            
+                            [purchase saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (succeeded) {
+                                    // Display confirmation
+                                    NSLog(@"Purchase item with id %@ saved",[purchase objectId]);
+                                    
+                                    
+                                    // Change the token to be false after using it, so it can not be used again within the duration
+                                    [tokenId setObject:[NSNumber numberWithBool:NO] forKey:@"active"];
+                                    [tokenId saveInBackground];
+                                    
+                                    // purchase if of type PFObject
+                                    [self createPurchaseItemWithPurchaseId:purchase];
+                                    
+                                    // Calculate the new balance after transaction
+                                    float newBalance = userBalance - newTotalCostFloat;
+                                    NSNumber *newBalanceNumber = [NSNumber numberWithFloat:newBalance];
+                                    
+                                    NSString *successMessage = [NSString stringWithFormat:@"Your purchase has been successful, your remaining balance is %.2f", newBalance];
+                                    
+                                    // To change user data that is not logged in, require cloud code
+//                                    [PFCloud callFunction:@"editUser" withParameters:@{ @"userId": userId, @"balance": newBalanceNumber
+//                                    }];
+                                    
+                                    [PFCloud callFunctionInBackground:@"editUser" withParameters:@{ @"userId": userId, @"balance":newBalanceNumber} block:^(id object, NSError *error) {
+                                        
+                                        if (error == nil) {
+                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Purchase Successful" message:successMessage delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                                            [alert show];
+                                            [self resetItemValues];
+                                            
+                                            // Tableview may be hidden at this point, uncomment in live app
+                                            // [_itemTableView setHidden: NO];
+                                            // [self stopReading];
+                                        }
+                                        else {
+                                            NSLog(@"PFCloud Error: %@", error);
+                                        }
+                                        
+                                    }];
+                                    
+                                }
+                                else {
+                                    // Display error
+                                    NSLog(@"%@",error);
+                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Purchase Unsuccessful" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                                    [alert show];
+                                    
+                                    // Tableview may be hidden at this point, uncomment in live app
+                                    // [_itemTableView setHidden: NO];
+                                    // [self stopReading];
+                                    
+                                    
+                                }
+                            }];
+                            
+                        }
+                        
+                    } else {
+                        NSLog(@"Error: %@",error);
+                        // Display Error
+                        NSLog(@"%@",error);
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                        [alert show];
+                        
+                        // Tableview may be hidden at this point, uncomment in live app
+                        // [_itemTableView setHidden: NO];
+                        // [self stopReading];
+                        
+                    }
+                    
+                }];
+                
+            }
+            
+        } else {
+            NSLog(@"%@",error);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Token Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+            [alert show];
+            
+            // Tableview may be hidden at this point, uncomment in live app
+            // [_itemTableView setHidden: NO];
+            // [self stopReading];
+        }
+        
+    }];
+    
 }
 
+- (void)createPurchaseItemWithPurchaseId:(PFObject *)purchaseId {
+//    PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+    
+    // Loop through each cell in itemTableView
+    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    for (NSInteger j = 0; j < [_itemTableView numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [_itemTableView numberOfRowsInSection:j]; ++i)
+        {
+            [cells addObject:[_itemTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+        }
+    }
+    
+    for (ItemController *cell in cells) {
+        
+        // Get the count of each item
+        int intItemQuantity = cell.itemCount;
+        NSNumber *itemQuantity = [NSNumber numberWithInt:intItemQuantity];
+        
+        // Get the item object of each row
+        PFObject *itemObject = [itemArray objectAtIndex:cell.itemCounter.tag];
+
+        // If the quantity was at least 1
+        if (intItemQuantity > 0) {
+            
+            // Initiate creation of purchaseItem
+            PFObject *purchaseItem = [PFObject objectWithClassName:@"PurchaseItem"];
+            purchaseItem[@"item"] = itemObject;
+            purchaseItem[@"purchase"] = purchaseId;
+            purchaseItem[@"quantity"] = itemQuantity;
+            [purchaseItem saveInBackground];
+            
+        }
+        
+    }
+    
+}
+
+- (void)resetItemValues {
+    
+    // Loop through each cell in itemTableView
+    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    for (NSInteger j = 0; j < [_itemTableView numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [_itemTableView numberOfRowsInSection:j]; ++i)
+        {
+            [cells addObject:[_itemTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+        }
+    }
+    
+    for (ItemController *cell in cells) {
+        
+        cell.itemCount = 0;
+        cell.itemCounter.text = @"0";
+        cell.itemQuantityLabelCost.text = @"0";
+    
+    }
+    _purchaseTotalLabel.text = @"$0.00";
+}
 
 #pragma mark - IBAction method implementation
 
 - (IBAction)startStopReading:(id)sender {
     // Test to see if works with hardcoded string
-//    [self createPurchaseWithTokenId:@"Io5mQrE9rL"];
+//    [self createPurchaseWithTokenId:@"YBkI9Fatth"];
     
+//    UIImage *cancelButton = [UIImage imageNamed:@"Cancel"];
+//    UIImage *purchaseButton = [UIImage imageNamed:@"Purchase"];
+    
+//    [_buttonPurchase setImage:cancelButton];
+//    _buttonPurchase.imageView.contentMode = UIViewContentModeScaleAspectFit
+
+
     if (!_isReading) {
         // This is the case where the app should read a QR code when the start button is tapped.
-        if ([self startReading]) {
-            // If the startReading methods returns YES and the capture session is successfully
-            // running, then change the start button title and the status message.
-            [_bbitemStart setTitle:@"Stop"];
-            [_lblStatus setText:@"Scanning for QR Code"];
-            [_itemTableView setHidden: YES];
+        
+        float totalCostFloat =[self purchaseTotalCost];
+        
+        // Can only begin reading if there is at least 1 item selected
+        if (totalCostFloat > 0) {
+            
+            if ([self startReading]) {
+                // If the startReading methods returns YES and the capture session is successfully
+                // running, then change the start button title and the status message.
+                [_bbitemStart setTitle:@"Cancel Transaction"];
+//                [_buttonPurchase setImage:cancelButton];
+                [_lblStatus setText:@"Scanning for QR Code"];
+                [_itemTableView setHidden: YES];
+                
+            } else {
+                // Camera does not work
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No camera" message:@"Your camera may not be working" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                [alert show];
+                // Set flag back to not reading because if user cancels transaction, _isReading is still set to being read
+                _isReading = !_isReading;
+                
+            }
+            
+        } else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Items Selected" message:@"You need to choose at least one item to make a purchase" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+            [alert show];
+            
+            // Set flag back to not reading because if user cancels transaction, _isReading is still set to being read
+            _isReading = !_isReading;
 
         }
+
     }
     else{
         // In this case the app is currently reading a QR code and it should stop doing so.
         [self stopReading];
         // The bar button item's title should change again.
-        [_bbitemStart setTitle:@"Start!"];
+        [_bbitemStart setTitle:@"Make Purchase!"];
+//        [_buttonPurchase setImage:purchaseButton];
         [_lblStatus setText:@""];
         [_itemTableView setHidden: NO];
 
@@ -250,6 +559,7 @@
     
     // Set to the flag the exact opposite value of the one that currently has.
     _isReading = !_isReading;
+    
 }
 
 
@@ -331,56 +641,12 @@
     }
 }
 
-- (void)createPurchaseWithTokenId:(NSString*)token{
-    // Initiate Purchase for Token
-    NSLog(@"Token ID: %@", token);
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Tokens"];
-    [query getObjectInBackgroundWithId:token block:^(PFObject *tokenId, NSError *error) {
-        
-        // If no error
-        if (error == nil) {
-            NSLog(@"%@",tokenId);
-            
-            // Get the user that corresponds to their tokenId
-            NSString *user = [tokenId objectForKey:@"user"];
-            
-            // Create Purchase
-            PFObject *purchase = [PFObject objectWithClassName:@"Purchase"];
-            purchase[@"user"] = user;
-            
-//            NSString *totalCostString = @"";
-//            int totalCostInt = [totalCostString intValue];
-            
-            // Replace 3 with totalCostInt when figured out how to determine totalCost
-            NSNumber *totalCost = [NSNumber numberWithInt:3];
-            
-            /* Still working on how to determine total cost */
-            purchase[@"totalCost"] = totalCost;
-            [purchase saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    // Display confirmation
-                    NSLog(@"Purchase item with id %@ saved",[purchase objectId]);
-                }
-                else {
-                    // Display error
-                    NSLog(@"%@",error);
-                }
-            }];
-            
-        }
-        else {
-            NSLog(@"%@",error);
-        }
-        
-    }];
-    
-}
-
-
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate method implementation
 
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+    
+//    UIImage *cancelButton = [UIImage imageNamed:@"Cancel"];
+//    UIImage *purchaseButton = [UIImage imageNamed:@"Purchase"];
     
     // Check if the metadataObjects array is not nil and it contains at least one object.
     if (metadataObjects != nil && [metadataObjects count] > 0) {
@@ -393,10 +659,12 @@
             
             NSString *tokenId = [metadataObj stringValue];
             [self createPurchaseWithTokenId:tokenId];
+            
             [_lblStatus performSelectorOnMainThread:@selector(setText:) withObject:tokenId waitUntilDone:NO];
             
             [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
-            [_bbitemStart performSelectorOnMainThread:@selector(setTitle:) withObject:@"Start!" waitUntilDone:NO];
+            [_bbitemStart performSelectorOnMainThread:@selector(setTitle:) withObject:@"Make Purchase" waitUntilDone:NO];
+//            [_buttonPurchase setImage:purchaseButton];
 
             _isReading = NO;
             
@@ -411,11 +679,9 @@
 
 #pragma mark - ItemControllerProtocol
 - (void)quantityDidChange:(NSInteger)quantity{
-    
-//    cell.itemCounter.text = [NSString stringWithFormat:@"%i", quantity];
 
-    NSLog(@"Quantity Changed");
-    
+//    NSLog(@"Quantity Changed");
+
 }
 
 @end

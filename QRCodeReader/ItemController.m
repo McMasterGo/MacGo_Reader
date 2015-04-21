@@ -37,11 +37,11 @@
 //    // Dispose of any resources that can be recreated.
 //}
 
-- (void)quantityDidChange:(NSInteger)quantity {
-    
+//- (void)quantityDidChange:(NSInteger)quantity {
+//
 //    _itemCounter.text = [NSString stringWithFormat:@"%i", quantity];
-    
-}
+//    
+//}
 
 
 /*
