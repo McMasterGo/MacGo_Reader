@@ -343,11 +343,14 @@
                         } else {
                             NSLog(@"User balance of %.2f is greater than total price of %.2f", userBalance, newTotalCostFloat);
                             
+                            NSString *purchaseLocation = @"McMaster";
+                            
                             // Create Purchase
                             PFObject *purchase = [PFObject objectWithClassName:@"Purchase"];
                             
                             purchase[@"user"] = userPointerObject;
                             purchase[@"totalCost"] = totalCost;
+                            purchase[@"Description"] = purchaseLocation;
                             
                             [purchase saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (succeeded) {

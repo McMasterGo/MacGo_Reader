@@ -143,8 +143,8 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="9bn-de-NUi"/>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0Q-Lm-Uon">
-                                <rect key="frame" x="346" y="943" width="100" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0Q-Lm-Uon">
+                                <rect key="frame" x="334" y="943" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Afz-T0-B6j"/>
                                     <constraint firstAttribute="width" constant="100" id="ayL-XO-Ab4"/>
@@ -195,7 +195,7 @@
                                                     <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="11"/>
                                                     <state key="normal" image="Minus Icon"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlB-VB-5mc">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlB-VB-5mc">
                                                     <rect key="frame" x="352" y="23" width="64" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="0Fg-Ax-B2Y"/>
@@ -206,11 +206,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemCost" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ow-JB-Zmq">
-                                                    <rect key="frame" x="1" y="41" width="84" height="15"/>
+                                                    <rect key="frame" x="1" y="44" width="84" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="84" id="03J-q3-eT2"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                     <color key="textColor" red="0.7725490196" green="0.71372549019999998" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -231,7 +231,7 @@
                                                 <constraint firstItem="OY0-gd-hr7" firstAttribute="leading" secondItem="3ow-JB-Zmq" secondAttribute="leading" id="KlR-7t-GbB"/>
                                                 <constraint firstItem="rlB-VB-5mc" firstAttribute="top" secondItem="aX8-jP-cnH" secondAttribute="topMargin" constant="15" id="QDR-sG-gZR"/>
                                                 <constraint firstItem="OY0-gd-hr7" firstAttribute="leading" secondItem="aX8-jP-cnH" secondAttribute="leadingMargin" constant="-7" id="ULs-ks-Bem"/>
-                                                <constraint firstItem="3ow-JB-Zmq" firstAttribute="top" secondItem="aX8-jP-cnH" secondAttribute="topMargin" constant="33" id="Vup-7e-8Yc"/>
+                                                <constraint firstItem="3ow-JB-Zmq" firstAttribute="top" secondItem="aX8-jP-cnH" secondAttribute="topMargin" constant="36" id="Vup-7e-8Yc"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="kJd-Qa-bLd" secondAttribute="trailing" constant="38" id="anF-wG-wl3"/>
                                                 <constraint firstItem="kJd-Qa-bLd" firstAttribute="bottom" secondItem="l2G-8K-o71" secondAttribute="bottom" id="loP-QN-Hac"/>
                                                 <constraint firstItem="kJd-Qa-bLd" firstAttribute="bottom" secondItem="t7K-gl-FQo" secondAttribute="bottom" id="nxY-za-RoQ"/>
@@ -256,7 +256,7 @@
                                 </connections>
                             </tableView>
                             <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lc-Zs-cao">
-                                <rect key="frame" x="453" y="937" width="331" height="43"/>
+                                <rect key="frame" x="0.0" y="0.0" width="276" height="43"/>
                                 <state key="normal" image="Purchase">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
