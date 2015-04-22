@@ -380,8 +380,9 @@
                                             [self resetItemValues];
                                             
                                             // Tableview may be hidden at this point, uncomment in live app
-                                            // [_itemTableView setHidden: NO];
-                                            // [self stopReading];
+                                            [self stopReading];
+                                            [_itemTableView setHidden: NO];
+
                                         }
                                         else {
                                             NSLog(@"PFCloud Error: %@", error);
@@ -519,14 +520,16 @@
         if (totalCostFloat > 0) {
             
             if ([self startReading]) {
+                
                 // If the startReading methods returns YES and the capture session is successfully
                 // running, then change the start button title and the status message.
                 [_bbitemStart setTitle:@"Cancel Transaction"];
 //                [_buttonPurchase setImage:cancelButton];
                 [_lblStatus setText:@"Scanning for QR Code"];
-                [_itemTableView setHidden: YES];
+                [_itemTableView setHidden:YES];
                 
             } else {
+                
                 // Camera does not work
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No camera" message:@"Your camera may not be working" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
                 [alert show];
