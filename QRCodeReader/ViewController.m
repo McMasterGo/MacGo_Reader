@@ -492,7 +492,7 @@
         
         cell.itemCount = 0;
         cell.itemCounter.text = @"0";
-        cell.itemQuantityLabelCost.text = @"0";
+        cell.itemQuantityLabelCost.text = @"$0.00";
     
     }
     _purchaseTotalLabel.text = @"$0.00";
