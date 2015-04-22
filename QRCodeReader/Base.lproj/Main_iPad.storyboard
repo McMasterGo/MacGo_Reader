@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="1tV-1B-zXK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="1tV-1B-zXK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -136,10 +136,10 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0Q-Lm-Uon">
-                                <rect key="frame" x="346" y="943" width="77" height="21"/>
+                                <rect key="frame" x="346" y="943" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Afz-T0-B6j"/>
-                                    <constraint firstAttribute="width" constant="77" id="ayL-XO-Ab4"/>
+                                    <constraint firstAttribute="width" constant="100" id="ayL-XO-Ab4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                 <color key="textColor" red="0.81568627449999997" green="0.75686274509999996" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -259,7 +259,7 @@
                             <constraint firstAttribute="centerY" secondItem="rTF-xS-ZfW" secondAttribute="centerY" constant="457" id="2yW-Lg-uG1"/>
                             <constraint firstItem="jUq-zO-n9J" firstAttribute="centerX" secondItem="jMX-cm-Du5" secondAttribute="centerX" id="4V8-Oo-Guu"/>
                             <constraint firstItem="GF3-AO-s1S" firstAttribute="leading" secondItem="BjX-rt-7uB" secondAttribute="leadingMargin" constant="-6" id="B8V-Xa-s4X"/>
-                            <constraint firstAttribute="centerX" secondItem="I0Q-Lm-Uon" secondAttribute="centerX" id="CJD-q7-eif"/>
+                            <constraint firstAttribute="centerX" secondItem="I0Q-Lm-Uon" secondAttribute="centerX" constant="-12" id="CJD-q7-eif"/>
                             <constraint firstAttribute="trailing" secondItem="cxg-Bq-8yl" secondAttribute="trailing" id="EjQ-BX-OPQ"/>
                             <constraint firstAttribute="centerY" secondItem="jUq-zO-n9J" secondAttribute="centerY" id="Pgp-38-RZu"/>
                             <constraint firstItem="cxg-Bq-8yl" firstAttribute="top" secondItem="rTF-xS-ZfW" secondAttribute="bottom" constant="34" id="VVE-lz-83i"/>
