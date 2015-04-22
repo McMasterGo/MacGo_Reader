@@ -423,8 +423,8 @@
                         [alert show];
                         
                         // Tableview may be hidden at this point, uncomment in live app
-                        // [_itemTableView setHidden: NO];
-                        // [self stopReading];
+                         [_itemTableView setHidden: NO];
+                         [self stopReading];
                         
                     }
                     
@@ -438,8 +438,8 @@
             [alert show];
             
             // Tableview may be hidden at this point, uncomment in live app
-            // [_itemTableView setHidden: NO];
-            // [self stopReading];
+             [_itemTableView setHidden: NO];
+             [self stopReading];
         }
         
     }];
