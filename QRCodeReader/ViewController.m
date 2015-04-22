@@ -28,9 +28,14 @@
 // Instead of this, add _ (i.e. _itemTableView) to instance
 //@synthesize itemTableView;
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Initially make the captureSession object nil.
