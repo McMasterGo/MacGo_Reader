@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="1tV-1B-zXK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="1tV-1B-zXK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -79,16 +79,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUq-zO-n9J">
-                                <rect key="frame" x="234" y="362" width="300" height="300"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cpY-aO-K6j">
+                                <rect key="frame" x="359" y="487" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="L3k-CM-3cv"/>
-                                    <constraint firstAttribute="height" constant="300" id="t9p-j9-bRs"/>
+                                    <constraint firstAttribute="width" constant="50" id="SD7-H5-4XN"/>
+                                    <constraint firstAttribute="height" constant="50" id="XnC-D1-ala"/>
+                                </constraints>
+                                <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUq-zO-n9J">
+                                <rect key="frame" x="134" y="262" width="500" height="500"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="500" id="L3k-CM-3cv"/>
+                                    <constraint firstAttribute="height" constant="500" id="t9p-j9-bRs"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="150"/>
+                                        <integer key="value" value="250"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -102,8 +110,8 @@
                                 <color key="textColor" red="0.81568627449999997" green="0.75686274509999996" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="jMX-cm-Du5">
-                                <rect key="frame" x="244" y="676" width="280" height="45"/>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="jMX-cm-Du5">
+                                <rect key="frame" x="244" y="776" width="280" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="J1x-w7-Hpz"/>
                                     <constraint firstAttribute="width" constant="280" id="Ttg-VM-awO"/>
@@ -260,6 +268,7 @@
                             <constraint firstItem="jUq-zO-n9J" firstAttribute="centerX" secondItem="jMX-cm-Du5" secondAttribute="centerX" id="4V8-Oo-Guu"/>
                             <constraint firstItem="GF3-AO-s1S" firstAttribute="leading" secondItem="BjX-rt-7uB" secondAttribute="leadingMargin" constant="-6" id="B8V-Xa-s4X"/>
                             <constraint firstAttribute="centerX" secondItem="I0Q-Lm-Uon" secondAttribute="centerX" id="CJD-q7-eif"/>
+                            <constraint firstAttribute="centerX" secondItem="cpY-aO-K6j" secondAttribute="centerX" id="CVd-pf-DIs"/>
                             <constraint firstAttribute="trailing" secondItem="cxg-Bq-8yl" secondAttribute="trailing" id="EjQ-BX-OPQ"/>
                             <constraint firstAttribute="centerY" secondItem="jUq-zO-n9J" secondAttribute="centerY" id="Pgp-38-RZu"/>
                             <constraint firstItem="cxg-Bq-8yl" firstAttribute="top" secondItem="rTF-xS-ZfW" secondAttribute="bottom" constant="34" id="VVE-lz-83i"/>
@@ -271,6 +280,7 @@
                             <constraint firstAttribute="trailing" secondItem="Jv7-3h-aVw" secondAttribute="trailing" id="kjW-kF-q92"/>
                             <constraint firstAttribute="centerX" secondItem="jUq-zO-n9J" secondAttribute="centerX" id="ntW-As-gu4"/>
                             <constraint firstItem="XfL-Ks-GpF" firstAttribute="top" secondItem="Jv7-3h-aVw" secondAttribute="bottom" id="qnD-Ms-mfl"/>
+                            <constraint firstAttribute="centerY" secondItem="cpY-aO-K6j" secondAttribute="centerY" id="rm0-vP-1bx"/>
                             <constraint firstItem="Jv7-3h-aVw" firstAttribute="top" secondItem="I0Q-Lm-Uon" secondAttribute="bottom" constant="16" id="tK8-EO-RIN"/>
                             <constraint firstItem="Jv7-3h-aVw" firstAttribute="leading" secondItem="BjX-rt-7uB" secondAttribute="leading" id="vc7-nf-ED7"/>
                         </constraints>
@@ -280,6 +290,7 @@
                         <outlet property="itemTableView" destination="cxg-Bq-8yl" id="9Wf-8o-PPr"/>
                         <outlet property="lblStatus" destination="jMX-cm-Du5" id="Xvb-LR-akf"/>
                         <outlet property="purchaseTotalLabel" destination="I0Q-Lm-Uon" id="JK6-sI-WU7"/>
+                        <outlet property="viewPreview" destination="jUq-zO-n9J" id="s6R-Yd-Bfk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0hW-Ln-I70" sceneMemberID="firstResponder"/>
