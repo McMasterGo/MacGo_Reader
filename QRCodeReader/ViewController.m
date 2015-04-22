@@ -299,8 +299,8 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Token Error" message:@"The QR Code that you are attempting to use has expired.\n Please generate a new code from the MacGo application." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
                 [alert show];
                 // Tableview may be hidden at this point, uncomment in live app
-                // [_itemTableView setHidden: NO];
-                // [self stopReading];
+                 [_itemTableView setHidden: NO];
+                 [self stopReading];
 
                 
             } else {
@@ -337,8 +337,8 @@
                             [alert show];
                             
                             // Tableview may be hidden at this point, uncomment in live app
-                            // [_itemTableView setHidden: NO];
-                            // [self stopReading];
+                             [_itemTableView setHidden: NO];
+                             [self stopReading];
                             
                         } else {
                             NSLog(@"User balance of %.2f is greater than total price of %.2f", userBalance, newTotalCostFloat);
@@ -398,8 +398,8 @@
                                     [alert show];
                                     
                                     // Tableview may be hidden at this point, uncomment in live app
-                                    // [_itemTableView setHidden: NO];
-                                    // [self stopReading];
+                                     [_itemTableView setHidden: NO];
+                                     [self stopReading];
                                     
                                     
                                 }
